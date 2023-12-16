@@ -33,12 +33,22 @@ var database = firebase.database()
 firebase.database().ref('todos').on('child_added', (snapshot) => {
     let list = document.getElementById('content')
     var data = snapshot.val()
+    var suffix = ""
+    var edit_button = ""
+
+    if(data.status == "fertig") {
+        suffix = "(Fertig)"
+        edit_button = `<button onclick="edit('${data.id}')">Eröffnen</button>`
+    }else {
+        suffix = ""
+        edit_button = `<button onclick="edit('${data.id}')">Erledigt</button>`
+    }
 
     list.innerHTML += `
-    <div class="todo_card">
-      <p class="title">${data.title}</p>
+    <div class="todo_card ${data.status}">
+      <p class="title">${data.title} ${suffix}</p>
       <p class="desc">${data.desc}</p>
-      <button>Erledigt</button> <button onclick="del('${data.id}')">${data.id}</button>
+      ${edit_button} <button onclick="del('${data.id}')">Löschen</button>
     </div>
     `
 })
@@ -47,6 +57,29 @@ firebase.database().ref('todos').on('child_removed', (snapshot) => {
     window.location = ""
 })
 
+
+
 function del(uuid) {
     firebase.database().ref(`todos/todo_${uuid}`).set({})
 }
+
+function edit(id) {
+    var stat = 1;
+    firebase.database().ref(`todos/todo_${id}`).on('value', (obj) => {
+        var data = obj.val()
+        stat = data.status
+    })
+    if(stat == "fertig") {
+        firebase.database().ref(`todos/todo_${id}`).update({
+            status: "bearbeitung"
+        })
+    }else {
+        firebase.database().ref(`todos/todo_${id}`).update({
+            status: "fertig"
+        })
+    }
+}
+
+firebase.database().ref('todos').on('child_changed', (snapshot) => {
+    window.location = ""
+})
