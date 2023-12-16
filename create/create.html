@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialSphere</title>
+  <link rel="stylesheet" href="create.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+</head>
+<body>
+  <header class="nbar">
+    <div class="container">
+      <h1>&copy; SocialSphere</h1>
+    </div>
+  </header>
+  
+  <div class="content">
+    <div id="notify">ERROR</div>
+    <br>
+
+    <!--! CREATE HTML START-->
+
+    <div class="card">
+        <div class="c_head">
+            Todo Hinzufügen
+        </div>
+        <div class="form">
+            <p class="c_txt">Name der Aufgabe:</p>
+            <input type="text" id="todo_title" maxlength="25">
+            (max 25 Zeichen) <br> <br>
+            <p class="c_txt">Beschreibung der Aufgabe:</p>
+            <input type="text" id="todo_description" maxlength="40">
+            (max 40 Zeichen) <br>
+            <br>
+            <button onclick="add_todo()">Erstellen</button>
+        </div>
+    </div>
+  </div>
+
+
+    <!--! CREATE HTML END-->
+
+
+  </div>
+  <footer class="footer">
+    <i class="glyphicon glyphicon-list" onclick="home()"></i>
+    <i class="glyphicon glyphicon-plus" onclick="create()"></i>
+    <i class="glyphicon glyphicon-question-sign"></i>
+  </footer>
+
+  <!--! Java Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script src="create.js"></script>
+</body>
+</html>
